@@ -1,18 +1,19 @@
 import dataViz from './dataViz';
 import addToKeyboardState from './addToKeyboardState';
 import { getInput } from './getPuts';
+import { MidiMessage } from 'midi';
 
 const INPUT_NAME = 'WIDI green Bluetooth';
 // const INPUT_NAME = 'WIDI orange Bluetooth';
 
-export default function inputTest() {
-  const input = getInput(INPUT_NAME);
+export default async function inputTest() {
+  const input = await getInput(INPUT_NAME);
   let inputState = addToKeyboardState();
 
   input.on('message', listener);
   console.log('listening...');
 
-  function listener(deltaTime, message) {
+  function listener(deltaTime: number, message: MidiMessage) {
     inputState = addToKeyboardState([message], inputState);
     dataViz(inputState);
     const [status, pitch, velocity] = message;

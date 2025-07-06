@@ -70,7 +70,7 @@ export async function getOutput(name?: string, fallbackToVirtual?: boolean): Pro
   return await makeVirtualOutput();
 }
 
-export async function getInput(name?: string, fallbackToVirtual?: boolean): Promise<midi.Input> {
+export async function getInput(name?: string, fallbackToVirtual?: boolean) {
   if (name) {
     const input = new midi.Input();
     const portNumber: number | string = getPortNumber(name, input);

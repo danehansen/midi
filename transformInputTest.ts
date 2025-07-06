@@ -22,24 +22,23 @@ export default async function transformInputTest() {
   const pitchMapping: Record<Pitch, Pitch> = {}
   let inputState = addToKeyboardState();
   let outputState = addToKeyboardState();
-  const input = getInput(INPUT_NAME);
+  const input = await getInput(INPUT_NAME);
   const output = await getOutput(OUTPUT_NAME, true);
 
   input.on('message', listener);
   console.log('listening...');
 
-  function listener(deltaTime, message) {
+  function listener(deltaTime: number, message: MidiMessage) {
     const [status, pitch, velocity] = message;
     if (status === MidiMessageStatus.NOTE_OFF || MidiMessageStatus.NOTE_ON) {
-      const originalMessage: MidiMessage = [status, pitch, velocity];
-      inputState = addToKeyboardState([originalMessage], inputState);
+      inputState = addToKeyboardState([message], inputState);
 
       let alteredMessage: MidiMessage;
 
       if (status === MidiMessageStatus.NOTE_OFF || !velocity) {
         let mappedPitch = pitchMapping[pitch];
         if (typeof mappedPitch !== 'number') {
-          // console.log(`mappedPitch not found`, { pitchMapping, pitch })
+          console.warn(`mappedPitch not found`, { pitchMapping, pitch })
           mappedPitch = pitch;
           // throw new Error(`mappedPitch not found`)
         }
@@ -57,7 +56,7 @@ export default async function transformInputTest() {
       outputState = addToKeyboardState([alteredMessage], outputState);
       dataViz(outputState);
       // dataViz(inputState);
-      console.log({ deltaTime, alteredMessage, originalMessage })
+      console.log({ deltaTime, alteredMessage, message })
     }
   }
 

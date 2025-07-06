@@ -11,8 +11,8 @@ import calibratePiano from './calibratePiano';
   // outputTest();
   // shepherdTest();
   // calibratePiano();
-
   // inputTest();
-  // transformInputTest();
+
+  transformInputTest();
   // shepherdPlay();
 })();

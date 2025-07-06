@@ -23,26 +23,26 @@ export default async function shepherdPlay() {
   let dead = false;
   let inputState = addToKeyboardState();
   let outputState = addToKeyboardState();
-  const input = getInput(INPUT_NAME);
+  const input = await getInput(INPUT_NAME);
   const output = await getOutput(OUTPUT_NAME, true);
 
   input.on('message', listener);
   console.log('listening...');
 
-  function listener(deltaTime, message) {
+  function listener(deltaTime: number, message: MidiMessage) {
     const [status, pitch, velocity] = message;
-    inputState = addToKeyboardState([[status, pitch, velocity]], inputState);
-    const { messages } = shepherdMessage([status, pitch, velocity], undefined, undefined, {
+    inputState = addToKeyboardState([message], inputState);
+    const { messages } = shepherdMessage(message, undefined, undefined, {
       maxVelocity: MAX_VELOCITY,
       pianoCalibration: CALIBRATION,
     })
     messages.forEach(([, p,]) => {
-      const message: MidiMessage = [status, p, velocity];
-      outputState = addToKeyboardState([message], outputState);
+      const m: MidiMessage = [status, p, velocity];
+      outputState = addToKeyboardState([m], outputState);
     })
     dataViz(outputState);
-    console.log({ deltaTime, message })
     // dataViz(inputState);
+    console.log({ deltaTime, message })
   }
 
   process.on('SIGINT', () => {
