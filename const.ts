@@ -32,8 +32,8 @@ export const enum MidiMessageStatus {
 // TODO: get length of 2.5mm extension needed
 // TODO: get details on ~10v? power supply
 export const RANI_PIANO_CALIBRATION: Record<Pitch, Velocity> = { // act as velocity 0 for this pitch
-  // 21: MidiRange.HIGH, // A0
-  // 22: MidiRange.HIGH, // A#0
+  21: MidiRange.HIGH, // A0
+  22: MidiRange.HIGH, // A#0
   23: 26, // B0
   24: 28, // C1
   25: 10,
@@ -53,11 +53,11 @@ export const RANI_PIANO_CALIBRATION: Record<Pitch, Velocity> = { // act as veloc
   38: 17, // D2
   // 39: MidiRange.HIGH, // D#2
 
-  // 40: MidiRange.HIGH, // E2
-  // 41: MidiRange.HIGH, // F2
-  // 42: MidiRange.HIGH, // F#2
-  // 43: MidiRange.HIGH, // G2
-  // 44: MidiRange.HIGH, // G#2
+  40: MidiRange.HIGH, // E2
+  41: MidiRange.HIGH, // F2
+  42: MidiRange.HIGH, // F#2
+  43: MidiRange.HIGH, // G2
+  44: MidiRange.HIGH, // G#2
   // 45: 0, // A2
   // 46: 0, // A#2
   // 47: 0, // B2
@@ -125,7 +125,7 @@ export const RANI_PIANO_CALIBRATION: Record<Pitch, Velocity> = { // act as veloc
   103: 36, // G7
   104: 5, // G#7
   105: 23, // A7
-  // 106: MidiRange.HIGH, // A#7
-  // 107: MidiRange.HIGH, // B7
-  // 108: MidiRange.HIGH, // C8
+  106: MidiRange.HIGH, // A#7
+  107: MidiRange.HIGH, // B7
+  108: MidiRange.HIGH, // C8
 }

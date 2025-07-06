@@ -14,13 +14,12 @@ const DURATION = 100;
 const CALIBRATION = RANI_PIANO_CALIBRATION;
 // const CALIBRATION = undefined;
 
-// const OUTPUT_NAME = 'WIDI green Bluetooth';
+const OUTPUT_NAME = 'WIDI green Bluetooth';
 // const OUTPUT_NAME = 'WIDI orange Bluetooth';
-const OUTPUT_NAME = undefined;
 
 export default async function shepherdTest() {
   let dead = false;
-  const output = await getOutput(OUTPUT_NAME);
+  const output = await getOutput(OUTPUT_NAME, true);
   let outputState = addToKeyboardState();
   let currentPitch = 1;
 

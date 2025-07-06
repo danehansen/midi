@@ -24,7 +24,7 @@ export default async function shepherdPlay() {
   let inputState = addToKeyboardState();
   let outputState = addToKeyboardState();
   const input = getInput(INPUT_NAME);
-  const output = await getOutput(OUTPUT_NAME);
+  const output = await getOutput(OUTPUT_NAME, true);
 
   input.on('message', listener);
   console.log('listening...');

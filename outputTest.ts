@@ -12,12 +12,11 @@ const MAX_VELOCITY = Math.round(MidiRange.HIGH * 0.5);
 
 const OUTPUT_NAME = 'WIDI green Bluetooth';
 // const OUTPUT_NAME = 'WIDI orange Bluetooth';
-// const OUTPUT_NAME = undefined;
 
 export default async function outputTest() {
   let dead = false;
   let outputState = addToKeyboardState();
-  const output = await getOutput(OUTPUT_NAME);
+  const output = await getOutput(OUTPUT_NAME, true);
 
   noteOn();
 

@@ -7,11 +7,12 @@ import shepherdPlay from './shepherdPlay';
 import calibratePiano from './calibratePiano';
 
 (async function () {
-  // outputTest();
-  // inputTest();
-  // shepherdTest();
   // midiFileTest();
+  // outputTest();
+  // shepherdTest();
+  // calibratePiano();
+
+  // inputTest();
   // transformInputTest();
-  calibratePiano();
   // shepherdPlay();
 })();
