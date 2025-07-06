@@ -1,0 +1,22 @@
+{
+  "name": "midi-shepherd",
+  "version": "1.0.0",
+  "type": "module",
+  "module": "index.js",
+  "scripts": {
+    "start": "npx tsx watch ./index.ts",
+    "test": "npx tsx watch ./eases.test.ts"
+  },
+  "dependencies": {
+    "@danehansen/math": "^1.0.9",
+    "@types/node": "^24.0.8",
+    "babar": "^0.2.3",
+    "jzz": "^1.9.3",
+    "jzz-midi-smf": "^1.9.8",
+    "midi": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/babar": "^0.2.4",
+    "@types/midi": "^2.0.3"
+  }
+}
