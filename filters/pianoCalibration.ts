@@ -2,7 +2,7 @@ import { MidiMessage } from "midi";
 import { Pitch, Velocity } from "../utils/types";
 import math from '@danehansen/math';
 import { MidiRange } from "../utils/const";
-import { getFilterModifier, ModifierCallback } from "../utils/modifiers";
+import { getFilterModifier, ModifierCallback } from "../modifiers";
 
 export default function pianoCalibration([status, pitch, velocity]: MidiMessage, calibrationData: Record<Pitch, Velocity> = RANI_PIANO_CALIBRATION): MidiMessage {
   let v: number = velocity;

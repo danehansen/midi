@@ -3,7 +3,7 @@ import { MidiMessageStatus } from "../utils/const";
 import getOctavesOfPitch from "../utils/getOctavesOfPitch";
 import { KeyboardState } from "../utils/types";
 import isMidiMessageOn from "../utils/isMidiMessageOn";
-import { getTransformModifier, ModifierCallback } from "../utils/modifiers";
+import { getTransformModifier, ModifierCallback } from "../modifiers";
 
 export default function shepardize(
   inMessage: MidiMessage,

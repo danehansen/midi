@@ -8,7 +8,8 @@ import { shepardizeModifier } from '../transforms/shepardize'
 import { pianoCalibrationModifier } from "../filters/pianoCalibration";
 import { randomizeOctaveModifier } from "../transforms/randomizeOctave";
 import { KeyboardState } from "../utils/types";
-import { echo, ascend } from "../utils/modifiers";
+import ascend from "../modifiers/ascend";
+import echo from "../modifiers/echo";
 
 const INPUT_NAME = 'WIDI green Bluetooth';
 const OUTPUT_NAME = 'WIDI orange Bluetooth';

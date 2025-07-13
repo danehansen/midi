@@ -4,7 +4,7 @@ import { KeyboardState, Pitch } from "../utils/types";
 import isMidiMessageOn from "../utils/isMidiMessageOn";
 import getOctavesOfPitch from "../utils/getOctavesOfPitch";
 import math from '@danehansen/math';
-import { getTransformModifier, ModifierCallback } from "../utils/modifiers";
+import { getTransformModifier, ModifierCallback } from "../modifiers";
 
 const pitchMapping: Record<Pitch, Pitch> = {}
 type Options = { lowPass?: number; highPass?: number };

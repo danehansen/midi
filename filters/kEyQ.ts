@@ -3,7 +3,7 @@ import { Pitch, Taper } from "../utils/types";
 import * as eases from "../utils/eases";
 import { MidiRange } from "../utils/const";
 import math from '@danehansen/math';
-import { getFilterModifier, ModifierCallback } from "../utils/modifiers";
+import { getFilterModifier, ModifierCallback } from "../modifiers";
 
 type Options = {
   lowPass?: Pitch;
