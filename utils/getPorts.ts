@@ -2,6 +2,8 @@ import JZZ from 'jzz';
 import midi, { MidiMessage } from 'midi';
 import killAll from './killAll';
 
+// let count = 0;
+
 async function makeVirtualOutput(): Promise<midi.Output> {
   const jzz = await JZZ()
     .or('Cannot start MIDI engine!')
@@ -11,6 +13,8 @@ async function makeVirtualOutput(): Promise<midi.Output> {
   return {
     jzz,
     sendMessage(m: MidiMessage) {
+      // count++;
+      // console.log({ count });
       jzz.send(m)
         .or('problem sending')
     },
@@ -73,6 +77,8 @@ export async function getOutput(name?: string, fallbackToVirtual?: boolean): Pro
 
     return {
       sendMessage(m: MidiMessage) {
+        // count++;
+        // console.log({ count });
         output.sendMessage(m);
       },
       closePort() {
