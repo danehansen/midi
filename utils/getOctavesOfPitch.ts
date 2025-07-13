@@ -5,7 +5,7 @@ import { Pitch } from "./types";
 export default function getOctavesOfPitch(pitch: Pitch): Pitch[] {
   const lowestNote = pitch % OCTAVE_SIZE;
   const pitchs: Pitch[] = [];
-  for (let i = lowestNote; i <= MidiRange.HIGH; i += OCTAVE_SIZE) {
+  for (let i = lowestNote; i <= MidiRange.MAX; i += OCTAVE_SIZE) {
     pitchs.push(i);
   }
   return pitchs;

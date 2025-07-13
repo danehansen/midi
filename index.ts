@@ -1,18 +1,26 @@
-import outputTest from './outputTest';
-import inputTest from './inputTest';
-import shepherdTest from './shepherdTest';
-import midiFileTest from './midiFileTest';
-import transformInputTest from './transformInputTest';
-import shepherdPlay from './shepherdPlay';
-import calibratePiano from './calibratePiano';
+import testOutput from './testers/testOutput';
+import testInput from './testers/testInput';
+import testMidiFile from './testers/testMidiFile';
+import testFilter from './testers/testFilter';
+import kEyQ from './filters/kEyQ';
+import pianoCalibration, { RANI_PIANO_CALIBRATION } from './filters/pianoCalibration';
+import { playTester } from './players/playTester';
+import { playFile } from './players/playFile';
+import { playInput } from './players/playInput';
+import { PianoRange } from './utils/const';
 
 (async function () {
-  midiFileTest();
-  // outputTest();
-  // shepherdTest();
-  // calibratePiano();
+  // playTester();
+  playInput();
+  // playFile('./mid/the_entertainer.mid');
 
-  // inputTest();
-  // transformInputTest();
-  // shepherdPlay();
+  // testInput();
+  // testOutput();
+  // testMidiFile();
+
+  // testFilter(kEyQ, {
+  //   lowPass: PianoRange.MAX,
+  //   highPass: PianoRange.MIN,
+  // }, 127);
+  // testFilter(pianoCalibration, { calibration: RANI_PIANO_CALIBRATION }, 10);
 })();

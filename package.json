@@ -1,10 +1,11 @@
 {
-  "name": "midi-shepherd",
+  "name": "midi",
   "version": "1.0.0",
   "type": "module",
   "module": "index.js",
   "scripts": {
     "start": "npx tsx watch ./index.ts",
+    "kill": "npx tsx ./killAllIife.ts",
     "test": "npx tsx watch ./eases.test.ts"
   },
   "dependencies": {

@@ -21,7 +21,22 @@ async function makeVirtualOutput(): Promise<midi.Output> {
 }
 
 async function makeVirtualInput(): Promise<midi.Input> {
-  throw new Error('TODO: makeVirtualInput');
+  // throw new Error('TODO: makeVirtualInput');
+  const jzz = await JZZ()
+    .or('Cannot start MIDI engine!')
+    .openMidiIn()
+    .or('Cannot open MIDI In port!')
+
+  return {
+    jzz,
+    sendMessage(m: MidiMessage) {
+      jzz.send(m)
+        .or('problem sending')
+    },
+    closePort() {
+      jzz.close();
+    }
+  } as unknown as midi.Input
 }
 
 function getPortNumber(str: string, put: midi.Output | midi.Input): number | string {
@@ -57,7 +72,7 @@ export async function getOutput(name?: string, fallbackToVirtual?: boolean): Pro
     killAll(output);
 
     return {
-      sendMessage(m) {
+      sendMessage(m: MidiMessage) {
         output.sendMessage(m);
       },
       closePort() {

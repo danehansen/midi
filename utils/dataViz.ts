@@ -7,7 +7,7 @@ export default function dataViz(keyboardState: KeyboardState) {
   type Item = [number, number]
   const array: Item[] = [];
 
-  for (let pitch = MidiRange.LOW; pitch <= MidiRange.HIGH; pitch++) {
+  for (let pitch = MidiRange.MIN; pitch <= MidiRange.MAX; pitch++) {
     const message = keyboardState[pitch]
     if (!message) {
       array[pitch] = [pitch, 0];
@@ -18,8 +18,8 @@ export default function dataViz(keyboardState: KeyboardState) {
   }
   console.log(babar(array, {
     grid: 'blue',
-    maxY: MidiRange.HIGH,
-    minY: MidiRange.LOW,
+    maxY: MidiRange.MAX,
+    minY: MidiRange.MIN,
     width: 259,
     height: 70,
   }))
