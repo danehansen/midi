@@ -1,5 +1,5 @@
 import dataViz from '../utils/dataViz';
-import { getInput } from '../utils/getPuts';
+import { getInput } from '../utils/getPorts';
 import { MidiMessage } from 'midi';
 import { MidiMessageStatusMap } from '../utils/const';
 import { KeyboardState } from '../utils/types';

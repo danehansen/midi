@@ -22,5 +22,5 @@ import { PianoRange } from './utils/const';
   //   lowPass: PianoRange.MAX,
   //   highPass: PianoRange.MIN,
   // }, 127);
-  // testFilter(pianoCalibration, { calibration: RANI_PIANO_CALIBRATION }, 10);
+  // testFilter(pianoCalibration, RANI_PIANO_CALIBRATION, 1);
 })();

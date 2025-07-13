@@ -1,18 +1,18 @@
 import { MidiMessage } from "midi";
 import { getPitch } from "../utils/getMessageProps";
 import dataViz from "../utils/dataViz";
-import { getOutput } from "../utils/getPuts";
+import { getOutput } from "../utils/getPorts";
 import killAll from "../utils/killAll";
 import { kEyQModifier } from "../filters/kEyQ";
-import { shepardizeModifier } from '../transforms/shepardizeMidiMessage'
+import { shepardizeModifier } from '../transforms/shepardize'
 import { pianoCalibrationModifier } from "../filters/pianoCalibration";
-import { randomizePitchModifier } from "../transforms/randomizePitch";
+import { randomizeOctaveModifier } from "../transforms/randomizeOctave";
 import { MidiMessageStatus, MidiRange } from "../utils/const";
 import { KeyboardState } from "../utils/types";
 import sleep from "../utils/sleep";
 
 const OUTPUT_NAME = 'WIDI orange Bluetooth';
-const VELOCITY = 10;
+const VELOCITY = 1;
 const DURATION = 100;
 
 export async function playTester() {
@@ -24,7 +24,7 @@ export async function playTester() {
   // const modifierLast = pianoCalibrationModifier(finalCallback);
   // const modifierSecond = pianoCalibrationModifier(modifierLast);
   // const modifierFirst = shepardizeModifier(modifierLast);
-  // const modifierFirst = randomizePitchModifier(modifierLast);
+  // const modifierFirst = randomizeOctaveModifier(modifierLast);
   const modifierFirst = pianoCalibrationModifier(finalCallback);
 
   console.log('testing...');
@@ -52,9 +52,12 @@ export async function playTester() {
   function finalCallback(m: MidiMessage) {
     const p = getPitch(m);
     outputState[p] = m;
-    console.log(m)
-    // dataViz(outputState);
-    output.sendMessage(m);
+    dataViz(outputState);
+    const velocity = m[2];
+    if (!isNaN(velocity)) {
+      output.sendMessage(m);
+    }
+    console.log(m);
   }
 
   async function destroy() {

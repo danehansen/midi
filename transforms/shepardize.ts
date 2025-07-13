@@ -5,7 +5,7 @@ import { KeyboardState } from "../utils/types";
 import isMidiMessageOn from "../utils/isMidiMessageOn";
 import { getTransformModifier, ModifierCallback } from "../utils/modifiers";
 
-export default function shepardizeMidiMessage(
+export default function shepardize(
   inMessage: MidiMessage,
   inState: KeyboardState,
 ) {
@@ -40,5 +40,5 @@ export default function shepardizeMidiMessage(
 }
 
 export function shepardizeModifier(callback: ModifierCallback) {
-  return getTransformModifier(callback, shepardizeMidiMessage);
+  return getTransformModifier(callback, shepardize);
 }

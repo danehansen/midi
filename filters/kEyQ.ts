@@ -2,7 +2,7 @@ import { MidiMessage } from "midi";
 import { Pitch, Taper } from "../utils/types";
 import * as eases from "../utils/eases";
 import { MidiRange } from "../utils/const";
-import getNormalized from "../utils/getNormalized";
+import math from '@danehansen/math';
 import { getFilterModifier, ModifierCallback } from "../utils/modifiers";
 
 type Options = {
@@ -22,7 +22,7 @@ export default function kEyQ([status, pitch, velocity]: MidiMessage, {
     return [status, pitch, MidiRange.MIN];
   }
   let v: number = velocity;
-  const nPitch = getNormalized(highPass - 1, lowPass + 1, pitch); // range expanded by 1 on each end so that the highest/lowest notes are not wastest as velocity 0
+  const nPitch = math.normalize(highPass - 1, lowPass + 1, pitch); // range expanded by 1 on each end so that the highest/lowest notes are not wastest as velocity 0
   const taperIn = taper / 2
   const taperOut = 1 - taperIn;
   if (nPitch < taperIn) {

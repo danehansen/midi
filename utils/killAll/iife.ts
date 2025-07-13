@@ -1,4 +1,4 @@
-import killAll from './utils/killAll';
+import killAll from './';
 import midi from 'midi';
 
 (function () {

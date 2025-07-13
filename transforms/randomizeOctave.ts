@@ -9,7 +9,7 @@ import { getTransformModifier, ModifierCallback } from "../utils/modifiers";
 const pitchMapping: Record<Pitch, Pitch> = {}
 type Options = { lowPass?: number; highPass?: number };
 
-export default function randomizePitch(
+export default function randomizeOctave(
   message: MidiMessage,
   inputState: KeyboardState,
   {
@@ -44,6 +44,6 @@ export default function randomizePitch(
   return [alteredMessage]
 }
 
-export function randomizePitchModifier(callback: ModifierCallback) {
-  return getTransformModifier(callback, randomizePitch);
+export function randomizeOctaveModifier(callback: ModifierCallback) {
+  return getTransformModifier(callback, randomizeOctave);
 }

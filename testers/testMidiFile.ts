@@ -1,7 +1,7 @@
 import { MidiMessage } from 'midi';
 import { MidiMessageStatus } from '../utils/const';
 import dataViz from '../utils/dataViz';
-import { getOutput } from '../utils/getPuts';
+import { getOutput } from '../utils/getPorts';
 import JZZ from 'jzz';
 import SMF from 'jzz-midi-smf';
 import { readFile } from 'fs/promises';

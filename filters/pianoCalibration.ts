@@ -1,20 +1,22 @@
 import { MidiMessage } from "midi";
 import { Pitch, Velocity } from "../utils/types";
-import getNormalized from "../utils/getNormalized";
+import math from '@danehansen/math';
 import { MidiRange } from "../utils/const";
 import { getFilterModifier, ModifierCallback } from "../utils/modifiers";
 
-// TODO: needs work
 export default function pianoCalibration([status, pitch, velocity]: MidiMessage, calibrationData: Record<Pitch, Velocity> = RANI_PIANO_CALIBRATION): MidiMessage {
   let v: number = velocity;
   const calVel = calibrationData[pitch];
-  if (calVel) {
-    const calN = getNormalized(calVel, MidiRange.MAX, v);
+  if (calVel && calVel !== MidiRange.MAX) {
     const calDiff = MidiRange.MAX - calVel;
-    v = calVel + calDiff * calN;
+    const velN = math.normalize(MidiRange.MIN, MidiRange.MAX, velocity)
+    v = calVel + calDiff * velN;
+  } else {
+    v = velocity;
   }
 
-  return [status, pitch, Math.round(v)];
+  const finalVelocity = Math.round(v)
+  return [status, pitch, finalVelocity];
 }
 
 export const RANI_PIANO_CALIBRATION: Record<Pitch, Velocity> = { // act as velocity 0 for this pitch

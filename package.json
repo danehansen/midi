@@ -5,7 +5,7 @@
   "module": "index.js",
   "scripts": {
     "start": "npx tsx watch ./index.ts",
-    "kill": "npx tsx ./killAllIife.ts",
+    "kill": "npx tsx ./killAll/iife.ts",
     "test": "npx tsx watch ./eases.test.ts"
   },
   "dependencies": {

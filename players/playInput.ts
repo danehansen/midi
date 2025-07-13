@@ -1,12 +1,12 @@
 import { Input, MidiMessage } from "midi";
 import { getPitch } from "../utils/getMessageProps";
 import dataViz from "../utils/dataViz";
-import { getInput, getOutput } from "../utils/getPuts";
+import { getInput, getOutput } from "../utils/getPorts";
 import killAll from "../utils/killAll";
 import { kEyQModifier } from "../filters/kEyQ";
-import { shepardizeModifier } from '../transforms/shepardizeMidiMessage'
+import { shepardizeModifier } from '../transforms/shepardize'
 import { pianoCalibrationModifier } from "../filters/pianoCalibration";
-import { randomizePitchModifier } from "../transforms/randomizePitch";
+import { randomizeOctaveModifier } from "../transforms/randomizeOctave";
 import { KeyboardState } from "../utils/types";
 
 const INPUT_NAME = 'WIDI green Bluetooth';
@@ -21,7 +21,7 @@ export async function playInput() {
   const modifierLast = kEyQModifier(finalCallback);
   // const modifierSecond = pianoCalibrationModifier(modifierLast);
   const modifierFirst = shepardizeModifier(modifierLast);
-  // const modifierFirst = randomizePitchModifier(modifierLast);
+  // const modifierFirst = randomizeOctaveModifier(modifierLast);
 
   input = await getInput(INPUT_NAME);
   input.on('message', inputListener);

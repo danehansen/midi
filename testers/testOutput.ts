@@ -2,7 +2,7 @@ import { MidiMessage } from 'midi';
 import { MidiMessageStatus, MidiMessageStatusMap, MidiRange } from '../utils/const';
 import sleep from '../utils/sleep';
 import dataViz from '../utils/dataViz';
-import { getOutput } from '../utils/getPuts';
+import { getOutput } from '../utils/getPorts';
 import killAll from '../utils/killAll';
 import { KeyboardState } from '../utils/types';
 import { getPitch } from '../utils/getMessageProps';
