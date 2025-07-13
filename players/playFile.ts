@@ -25,6 +25,7 @@ export async function playFile(midiFile: string) {
   const modifierLast = kEyQModifier(finalCallback);
   // const modifierSecond = pianoCalibrationModifier(modifierLast);
   // const modifierFirst = shepardizeModifier(modifierLast);
+  // const modifierFirst = randomizeOctaveModifier(modifierLast);
   const modifierFirst = randomizeOctaveModifier(modifierLast);
 
   const smf = new (JZZ.MIDI as MidiConstructor).SMF(await readFile(midiFile, 'binary'));

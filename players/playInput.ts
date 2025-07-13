@@ -8,6 +8,7 @@ import { shepardizeModifier } from '../transforms/shepardize'
 import { pianoCalibrationModifier } from "../filters/pianoCalibration";
 import { randomizeOctaveModifier } from "../transforms/randomizeOctave";
 import { KeyboardState } from "../utils/types";
+import { echo, ascend } from "../utils/modifiers";
 
 const INPUT_NAME = 'WIDI green Bluetooth';
 const OUTPUT_NAME = 'WIDI orange Bluetooth';
@@ -20,7 +21,7 @@ export async function playInput() {
 
   const modifierLast = kEyQModifier(finalCallback);
   // const modifierSecond = pianoCalibrationModifier(modifierLast);
-  const modifierFirst = shepardizeModifier(modifierLast);
+  // const modifierFirst = shepardizeModifier(modifierLast);
   // const modifierFirst = randomizeOctaveModifier(modifierLast);
 
   input = await getInput(INPUT_NAME);
@@ -29,7 +30,9 @@ export async function playInput() {
   process.on('SIGINT', destroy);
 
   function inputListener(deltaTime: number, message: MidiMessage) {
-    modifierFirst(message)
+    // modifierFirst(message)
+    // echo(message, modifierLast);
+    ascend(message, modifierLast);
   }
 
   function finalCallback(m: MidiMessage) {
