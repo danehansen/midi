@@ -1,7 +1,7 @@
 import { MidiMessage } from "midi";
 import { ModifierCallback } from ".";
 import { KeyboardState } from "../utils/types";
-import { MidiMessageStatus, MidiRange } from "../utils/const";
+import { MidiMessageStatus } from "../utils/const";
 import { getPitch, getStatus, getVelocity } from "../utils/getMessageProps";
 
 const DELAY = 500;

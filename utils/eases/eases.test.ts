@@ -1,6 +1,6 @@
 import { strict as assert } from "node:assert";
 import { describe, it } from "node:test";
-import * as eases from './eases';
+import * as eases from './';
 
 describe('eases.ts', () => {
   it('all get value of 0 back', () => {
