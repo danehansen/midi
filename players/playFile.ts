@@ -27,7 +27,6 @@ export async function playFile(midiFile: string) {
   // const modifierSecond = pianoCalibrationModifier(modifierLast);
   // const modifierFirst = shepardizeModifier(modifierLast);
   // const modifierFirst = randomizeOctaveModifier(modifierLast);
-  // @ts-expect-error
   const modifierFirst = randomizeOctaveModifier(modifierLast);
 
   const smf = new (JZZ.MIDI as MidiConstructor).SMF(await readFile(midiFile, 'binary'));
@@ -40,7 +39,6 @@ export async function playFile(midiFile: string) {
   function send(message: MidiMessage) {
     const status = getStatus(message);
     if (status === MidiMessageStatus.NOTE_ON || status === MidiMessageStatus.NOTE_OFF) {
-      // @ts-expect-error
       modifierFirst(message);
     }
   }

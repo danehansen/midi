@@ -1,7 +1,7 @@
 import { MidiMessage } from "midi";
-import { Modifier, ModifierCallback } from ".";
+import { UnnamedB, MessageHandler } from ".";
 
-const blank: Modifier = (message: MidiMessage, callback: ModifierCallback): void => {
+const blank: UnnamedB = (message: MidiMessage, callback: MessageHandler): void => {
   callback(message)
 }
 

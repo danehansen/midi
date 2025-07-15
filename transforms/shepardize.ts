@@ -3,7 +3,7 @@ import { MidiMessageStatus } from "../utils/const";
 import getOctavesOfPitch from "../utils/getOctavesOfPitch";
 import { KeyboardState } from "../utils/types";
 import isMidiMessageOn from "../utils/isMidiMessageOn";
-import { getTransformModifier, ModifierCallback } from "../modifiers";
+import { getTransformHandler, MessageHandler } from "../modifiers";
 import { Transformer } from "../transforms";
 
 const shepardize: Transformer = (
@@ -40,6 +40,6 @@ const shepardize: Transformer = (
   }
 }
 
-export function shepardizeModifier(callback: ModifierCallback) {
-  return getTransformModifier(callback, shepardize);
+export function shepardizeModifier(callback: MessageHandler): MessageHandler {
+  return getTransformHandler(callback, shepardize);
 }

@@ -1,5 +1,5 @@
 import { MidiMessage } from "midi";
-import { Modifier, ModifierCallback } from ".";
+import { UnnamedB, MessageHandler } from ".";
 import { KeyboardState } from "../utils/types";
 import { MidiMessageStatus } from "../utils/const";
 import { getPitch, getStatus, getVelocity } from "../utils/getMessageProps";
@@ -7,7 +7,7 @@ import { getPitch, getStatus, getVelocity } from "../utils/getMessageProps";
 const DELAY = 500;
 const DECAY = 0.5;
 
-const echo: Modifier = (message: MidiMessage, callback: ModifierCallback, preexistingState: KeyboardState): void => {
+const echo: UnnamedB = (message: MidiMessage, callback: MessageHandler): void => {
   callback(message);
   const status = getStatus(message);
   if (status === MidiMessageStatus.NOTE_ON || status === MidiMessageStatus.NOTE_OFF) {

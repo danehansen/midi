@@ -4,7 +4,7 @@ import { KeyboardState, Pitch } from "../utils/types";
 import isMidiMessageOn from "../utils/isMidiMessageOn";
 import getOctavesOfPitch from "../utils/getOctavesOfPitch";
 import math from '@danehansen/math';
-import { getTransformModifier, ModifierCallback } from "../modifiers";
+import { getTransformHandler, MessageHandler } from "../modifiers";
 import { Transformer } from "../transforms";
 
 const pitchMapping: Record<Pitch, Pitch> = {}
@@ -45,6 +45,6 @@ const randomizeOctave: Transformer = (
   return [alteredMessage]
 }
 
-export function randomizeOctaveModifier(callback: ModifierCallback) {
-  return getTransformModifier(callback, randomizeOctave);
+export function randomizeOctaveModifier(callback: MessageHandler): MessageHandler {
+  return getTransformHandler(callback, randomizeOctave);
 }

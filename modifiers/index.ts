@@ -4,16 +4,10 @@ import { getPitch } from "../utils/getMessageProps";
 import { Filter } from "../filters";
 import { Transformer } from "../transforms";
 
-// earlier in chain:
-// (m: MidiMessage, callback: Function, state?: KeyboardState) => void
+export type MessageHandler = (message: MidiMessage) => void;
+export type UnnamedB = (message: MidiMessage, callback: MessageHandler, preexistingState?: KeyboardState) => void;
 
-// final in chain:
-// (m:MidiMessage)=>void // playing the note
-
-export type ModifierCallback = (message: MidiMessage) => ModifierCallback | void;
-export type Modifier = (message: MidiMessage, callback: ModifierCallback, preexistingState: KeyboardState) => void;
-
-export function getTransformModifier(callback: ModifierCallback, transformer: Transformer): Modifier {
+export function getTransformHandler(callback: MessageHandler, transformer: Transformer): MessageHandler {
   const inState: KeyboardState = {};
   return (message: MidiMessage): void => {
     const pitch = getPitch(message);
@@ -25,7 +19,7 @@ export function getTransformModifier(callback: ModifierCallback, transformer: Tr
   }
 }
 
-export function getFilterModifier(callback: ModifierCallback, filter: Filter): Modifier {
+export function getFilterHandler(callback: MessageHandler, filter: Filter): MessageHandler {
   const inState: KeyboardState = {};
   return (message: MidiMessage): void => {
     const pitch = getPitch(message);

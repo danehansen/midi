@@ -3,7 +3,7 @@ import { Pitch, Taper } from "../utils/types";
 import * as eases from "../utils/eases";
 import { MidiRange } from "../utils/const";
 import math from '@danehansen/math';
-import { getFilterModifier, ModifierCallback } from "../modifiers";
+import { getFilterHandler, MessageHandler } from "../modifiers";
 import { Filter } from ".";
 
 type Options = {
@@ -37,6 +37,6 @@ const kEyQ: Filter = ([status, pitch, velocity]: MidiMessage, {
 
 export default kEyQ;
 
-export function kEyQModifier(callback: ModifierCallback) {
-  return getFilterModifier(callback, kEyQ);
+export function kEyQModifier(callback: MessageHandler): MessageHandler {
+  return getFilterHandler(callback, kEyQ);
 }

@@ -33,7 +33,6 @@ export async function playInput() {
   function inputListener(deltaTime: number, message: MidiMessage) {
     // modifierFirst(message)
     // echo(message, modifierLast);
-    // @ts-expect-error
     ascend(message, modifierLast);
   }
 

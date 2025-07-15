@@ -33,14 +33,12 @@ export async function playTester() {
 
   async function noteOn(pitch: number = MidiRange.MIN) {
     let message: MidiMessage = [MidiMessageStatus.NOTE_ON, pitch, VELOCITY];
-    // @ts-expect-error
     modifierFirst(message);
     await sleep(DURATION);
     if (dead) {
       return;
     }
     message = [MidiMessageStatus.NOTE_OFF, pitch, MidiRange.MIN]
-    // @ts-expect-error
     modifierFirst(message);
     pitch++;
     if (pitch > MidiRange.MAX) {
