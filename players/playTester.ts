@@ -3,10 +3,7 @@ import { getPitch } from "../utils/getMessageProps";
 import dataViz from "../utils/dataViz";
 import { getOutput } from "../utils/getPorts";
 import killAll from "../utils/killAll";
-import { kEyQModifier } from "../filters/kEyQ";
-import { shepardizeModifier } from '../transforms/shepardize'
-import { pianoCalibrationModifier } from "../filters/pianoCalibration";
-import { randomizeOctaveModifier } from "../transforms/randomizeOctave";
+import { getRandomizeOctaveHandler, getPianoCalibrationHandler, getKEyQHandler, getShepardizeHandler } from "../handlers";
 import { MidiMessageStatus, MidiRange } from "../utils/const";
 import { KeyboardState } from "../utils/types";
 import sleep from "../utils/sleep";
@@ -20,12 +17,12 @@ export async function playTester() {
   const output = await getOutput(OUTPUT_NAME, true);
   const outputState: KeyboardState = {};
 
-  // const modifierLast = kEyQModifier(finalCallback);
-  // const modifierLast = pianoCalibrationModifier(finalCallback);
-  // const modifierSecond = pianoCalibrationModifier(modifierLast);
-  // const modifierFirst = shepardizeModifier(modifierLast);
-  // const modifierFirst = randomizeOctaveModifier(modifierLast);
-  const modifierFirst = pianoCalibrationModifier(finalCallback);
+  // const modifierLast = getKEyQHandler(finalCallback);
+  // const modifierLast = getPianoCalibrationHandler(finalCallback);
+  // const modifierSecond = getPianoCalibrationHandler(modifierLast);
+  // const modifierFirst = getShepardizeHandler(modifierLast);
+  const modifierFirst = getRandomizeOctaveHandler(finalCallback);
+  // const modifierFirst = getPianoCalibrationHandler(finalCallback);
 
   console.log('testing...');
   process.on('SIGINT', destroy);
@@ -52,12 +49,12 @@ export async function playTester() {
   function finalCallback(m: MidiMessage) {
     const p = getPitch(m);
     outputState[p] = m;
-    dataViz(outputState);
+    // dataViz(outputState);
     const velocity = m[2];
     if (!isNaN(velocity)) {
       output.sendMessage(m);
     }
-    console.log(m);
+    // console.log(m);
   }
 
   function destroy() {

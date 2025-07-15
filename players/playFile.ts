@@ -8,10 +8,7 @@ import { readFile } from 'fs/promises';
 import JZZ from 'jzz';
 import SMF from 'jzz-midi-smf';
 import { MidiMessageStatus } from "../utils/const";
-import { kEyQModifier } from "../filters/kEyQ";
-import { shepardizeModifier } from '../transforms/shepardize'
-import { pianoCalibrationModifier } from "../filters/pianoCalibration";
-import { randomizeOctaveModifier } from "../transforms/randomizeOctave";
+import { getPianoCalibrationHandler, getKEyQHandler, getShepardizeHandler, getRandomizeOctaveHandler } from '../handlers/index'
 import sleep from "../utils/sleep";
 
 const OUTPUT_NAME = 'WIDI orange Bluetooth';
@@ -23,11 +20,11 @@ export async function playFile(midiFile: string) {
   const output = await getOutput(OUTPUT_NAME, true);
   const outputState: KeyboardState = {};
 
-  const modifierLast = kEyQModifier(finalCallback);
-  // const modifierSecond = pianoCalibrationModifier(modifierLast);
-  // const modifierFirst = shepardizeModifier(modifierLast);
-  // const modifierFirst = randomizeOctaveModifier(modifierLast);
-  const modifierFirst = randomizeOctaveModifier(modifierLast);
+  const modifierLast = getKEyQHandler(finalCallback);
+  // const modifierSecond = getPianoCalibrationHandler(modifierLast);
+  // const modifierFirst = getShepardizeHandler(modifierLast);
+  // const modifierFirst = getRandomizeOctaveHandler(modifierLast);
+  const modifierFirst = getRandomizeOctaveHandler(modifierLast);
 
   const smf = new (JZZ.MIDI as MidiConstructor).SMF(await readFile(midiFile, 'binary'));
   const player = smf.player();

@@ -1,7 +1,7 @@
 import { MidiRange, OCTAVE_SIZE } from "./const";
 import { Pitch } from "./types";
 
-// TODOD: determine max length for all notes and max length for piano range
+// result length full range: 10-11, piano range: 7-8
 export default function getOctavesOfPitch(pitch: Pitch): Pitch[] {
   const lowestNote = pitch % OCTAVE_SIZE;
   const pitchs: Pitch[] = [];

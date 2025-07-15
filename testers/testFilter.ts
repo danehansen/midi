@@ -1,4 +1,4 @@
-import { Filter } from "../filters";
+import { Filter } from "../handlers/filters";
 import { MidiMessageStatus, MidiRange } from "../utils/const";
 import dataViz from "../utils/dataViz";
 import { KeyboardState, Velocity } from "../utils/types";

@@ -1,8 +1,7 @@
 import { MidiMessage } from "midi";
-import { Pitch, Velocity } from "../utils/types";
+import { Pitch, Velocity } from "../../utils/types";
 import math from '@danehansen/math';
-import { MidiRange } from "../utils/const";
-import { getFilterHandler, MessageHandler } from "../modifiers";
+import { MidiRange } from "../../utils/const";
 import { Filter } from ".";
 
 type CalibrationData = Record<Pitch, Velocity>
@@ -121,8 +120,4 @@ export const RANI_PIANO_CALIBRATION: CalibrationData = { // act as velocity 0 fo
   106: MidiRange.MAX, // A#7
   107: MidiRange.MAX, // B7
   108: MidiRange.MAX, // C8
-}
-
-export function pianoCalibrationModifier(callback: MessageHandler): MessageHandler {
-  return getFilterHandler(callback, pianoCalibration);
 }

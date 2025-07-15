@@ -3,13 +3,10 @@ import { getPitch } from "../utils/getMessageProps";
 import dataViz from "../utils/dataViz";
 import { getInput, getOutput } from "../utils/getPorts";
 import killAll from "../utils/killAll";
-import { kEyQModifier } from "../filters/kEyQ";
-import { shepardizeModifier } from '../transforms/shepardize'
-import { pianoCalibrationModifier } from "../filters/pianoCalibration";
-import { randomizeOctaveModifier } from "../transforms/randomizeOctave";
+import { getKEyQHandler, getPianoCalibrationHandler, getShepardizeHandler, getRandomizeOctaveHandler } from "../handlers";
 import { KeyboardState } from "../utils/types";
-import ascend from "../modifiers/ascend";
-import echo from "../modifiers/echo";
+import ascend from "../handlers/ascend";
+import echo from "../handlers/echo";
 
 const INPUT_NAME = 'WIDI green Bluetooth';
 const OUTPUT_NAME = 'WIDI orange Bluetooth';
@@ -20,10 +17,10 @@ export async function playInput() {
   const outputState: KeyboardState = {};
   let input: Input;
 
-  const modifierLast = kEyQModifier(finalCallback);
-  // const modifierSecond = pianoCalibrationModifier(modifierLast);
-  // const modifierFirst = shepardizeModifier(modifierLast);
-  // const modifierFirst = randomizeOctaveModifier(modifierLast);
+  const modifierLast = getKEyQHandler(finalCallback);
+  // const modifierSecond = getPianoCalibrationHandler(modifierLast);
+  // const modifierFirst = getShepardizeHandler(modifierLast);
+  // const modifierFirst = getRandomizeOctaveHandler(modifierLast);
 
   input = await getInput(INPUT_NAME);
   input.on('message', inputListener);
