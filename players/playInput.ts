@@ -33,6 +33,7 @@ export async function playInput() {
   function inputListener(deltaTime: number, message: MidiMessage) {
     // modifierFirst(message)
     // echo(message, modifierLast);
+    // @ts-expect-error
     ascend(message, modifierLast);
   }
 
@@ -44,11 +45,16 @@ export async function playInput() {
   }
 
   function destroy() {
+    if (dead) {
+      return;
+    }
     dead = true;
     killAll(output);
     input.off('message', inputListener);
+    console.log('closing input...')
     input.closePort();
+    console.log('closing output...')
     output.closePort();
-    process.exit(0);
+    process.exitCode = 0;
   }
 }

@@ -4,11 +4,12 @@ import getOctavesOfPitch from "../utils/getOctavesOfPitch";
 import { KeyboardState } from "../utils/types";
 import isMidiMessageOn from "../utils/isMidiMessageOn";
 import { getTransformModifier, ModifierCallback } from "../modifiers";
+import { Transformer } from "../transforms";
 
-export default function shepardize(
+const shepardize: Transformer = (
   inMessage: MidiMessage,
   inState: KeyboardState,
-) {
+): MidiMessage[] => {
   const [status, pitch, velocity] = inMessage;
   if (status !== MidiMessageStatus.NOTE_ON && status !== MidiMessageStatus.NOTE_OFF) {
     return [inMessage];

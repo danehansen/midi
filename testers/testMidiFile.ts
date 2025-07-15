@@ -43,12 +43,18 @@ export default async function testMidiFile() {
 
   player.play();
   console.log('playing...');
+  process.on('SIGINT', destroy);
 
-  process.on('SIGINT', () => {
+  function destroy() {
+    if (dead) {
+      return;
+    }
     dead = true;
     player.stop();
+    player.disconnect();
     killAll(output);
+    console.log('closing output...')
     output.closePort();
-    process.exit(0);
-  });
+    process.exitCode = 0;
+  }
 }

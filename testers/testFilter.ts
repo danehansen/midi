@@ -1,6 +1,7 @@
+import { Filter } from "../filters";
 import { MidiMessageStatus, MidiRange } from "../utils/const";
 import dataViz from "../utils/dataViz";
-import { Filter, KeyboardState, Velocity } from "../utils/types";
+import { KeyboardState, Velocity } from "../utils/types";
 
 export default function testFilter(filter: Filter, options?: any, velocity: Velocity = MidiRange.MAX) {
   const outputState: KeyboardState = {};

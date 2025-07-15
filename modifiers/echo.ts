@@ -1,12 +1,13 @@
 import { MidiMessage } from "midi";
-import { ModifierCallback } from ".";
+import { Modifier, ModifierCallback } from ".";
 import { KeyboardState } from "../utils/types";
 import { MidiMessageStatus } from "../utils/const";
 import { getPitch, getStatus, getVelocity } from "../utils/getMessageProps";
 
 const DELAY = 500;
 const DECAY = 0.5;
-export default function echo(message: MidiMessage, callback: ModifierCallback, preexistingState?: KeyboardState) {
+
+const echo: Modifier = (message: MidiMessage, callback: ModifierCallback, preexistingState: KeyboardState): void => {
   callback(message);
   const status = getStatus(message);
   if (status === MidiMessageStatus.NOTE_ON || status === MidiMessageStatus.NOTE_OFF) {
@@ -27,3 +28,5 @@ export default function echo(message: MidiMessage, callback: ModifierCallback, p
     }
   }
 }
+
+export default echo;

@@ -4,9 +4,9 @@
   "type": "module",
   "module": "index.js",
   "scripts": {
-    "start": "npx tsx watch ./index.ts",
+    "start": "npx tsx ./index.ts",
     "kill": "npx tsx ./killAll/iife.ts",
-    "test": "npx tsx watch ./eases/eases.test.ts"
+    "test": "npx tsx ./eases/eases.test.ts"
   },
   "dependencies": {
     "@danehansen/math": "^1.0.9",

@@ -1,5 +1,5 @@
 import { MidiMessage } from "midi";
-import { ModifierCallback } from ".";
+import { Modifier, ModifierCallback } from ".";
 import { KeyboardState } from "../utils/types";
 import { MidiMessageStatus, MidiRange } from "../utils/const";
 import { getPitch, getStatus, getVelocity } from "../utils/getMessageProps";
@@ -7,7 +7,8 @@ import { getPitch, getStatus, getVelocity } from "../utils/getMessageProps";
 const DELAY = 80;
 const DECAY = 0.8;
 const DIRECTION = 1;
-export default function ascend(message: MidiMessage, callback: ModifierCallback, preexistingState?: KeyboardState) {
+
+const ascend: Modifier = (message: MidiMessage, callback: ModifierCallback, preexistingState?: KeyboardState): void => {
   callback(message);
   const status = getStatus(message);
   if (status === MidiMessageStatus.NOTE_ON || status === MidiMessageStatus.NOTE_OFF) {
@@ -30,3 +31,5 @@ export default function ascend(message: MidiMessage, callback: ModifierCallback,
     }
   }
 }
+
+export default ascend;

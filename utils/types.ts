@@ -7,8 +7,6 @@ export type Velocity = number; // int MidiRange.MIN - MidiRange.MAX, 0 = absence
 export type Taper = number; // 0-1, possibly not the best term/usage since it actually represents double what the number does
 
 export type KeyboardState = Record<Pitch, MidiMessage | undefined>;
-export type Transformer = (message: MidiMessage, preexistingState: KeyboardState, options?: any) => MidiMessage[];
-export type Filter = (message: MidiMessage, options?: any) => MidiMessage;
 
 type Constructor = (typeof JZZ.MIDI);
 export interface MidiConstructor extends Constructor {

@@ -4,6 +4,7 @@ import * as eases from "../utils/eases";
 import { MidiRange } from "../utils/const";
 import math from '@danehansen/math';
 import { getFilterModifier, ModifierCallback } from "../modifiers";
+import { Filter } from ".";
 
 type Options = {
   lowPass?: Pitch;
@@ -12,12 +13,12 @@ type Options = {
   ease?: eases.Ease;
 }
 
-export default function kEyQ([status, pitch, velocity]: MidiMessage, {
+const kEyQ: Filter = ([status, pitch, velocity]: MidiMessage, {
   lowPass = MidiRange.MAX,
   highPass = MidiRange.MIN,
   ease = eases.inCirc,
   taper = 1,
-}: Options = {}): MidiMessage {
+}: Options = {}): MidiMessage => {
   if (pitch < highPass || pitch > lowPass) {
     return [status, pitch, MidiRange.MIN];
   }
@@ -33,6 +34,8 @@ export default function kEyQ([status, pitch, velocity]: MidiMessage, {
 
   return [status, pitch, Math.round(v)];
 }
+
+export default kEyQ;
 
 export function kEyQModifier(callback: ModifierCallback) {
   return getFilterModifier(callback, kEyQ);

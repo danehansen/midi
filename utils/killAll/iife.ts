@@ -8,5 +8,5 @@ import midi from 'midi';
     killAll(output);
     output.closePort();
   }
-  process.exit(0);
+  process.exitCode = 0;
 })();

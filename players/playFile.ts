@@ -12,6 +12,7 @@ import { kEyQModifier } from "../filters/kEyQ";
 import { shepardizeModifier } from '../transforms/shepardize'
 import { pianoCalibrationModifier } from "../filters/pianoCalibration";
 import { randomizeOctaveModifier } from "../transforms/randomizeOctave";
+import sleep from "../utils/sleep";
 
 const OUTPUT_NAME = 'WIDI orange Bluetooth';
 
@@ -26,6 +27,7 @@ export async function playFile(midiFile: string) {
   // const modifierSecond = pianoCalibrationModifier(modifierLast);
   // const modifierFirst = shepardizeModifier(modifierLast);
   // const modifierFirst = randomizeOctaveModifier(modifierLast);
+  // @ts-expect-error
   const modifierFirst = randomizeOctaveModifier(modifierLast);
 
   const smf = new (JZZ.MIDI as MidiConstructor).SMF(await readFile(midiFile, 'binary'));
@@ -38,6 +40,7 @@ export async function playFile(midiFile: string) {
   function send(message: MidiMessage) {
     const status = getStatus(message);
     if (status === MidiMessageStatus.NOTE_ON || status === MidiMessageStatus.NOTE_OFF) {
+      // @ts-expect-error
       modifierFirst(message);
     }
   }
@@ -50,9 +53,15 @@ export async function playFile(midiFile: string) {
   }
 
   function destroy() {
+    if (dead) {
+      return;
+    }
     dead = true;
+    player.stop();
+    player.disconnect();
     killAll(output);
+    console.log('closing output...')
     output.closePort();
-    process.exit(0);
+    process.exitCode = 0;
   }
 }

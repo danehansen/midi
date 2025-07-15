@@ -19,6 +19,7 @@ export default async function testOutput() {
   const output = await getOutput(OUTPUT_NAME, true);
 
   noteOn();
+  process.on('SIGINT', destroy);
 
   async function noteOn() {
     if (dead) {
@@ -52,10 +53,14 @@ export default async function testOutput() {
     }
   }
 
-  process.on('SIGINT', () => {
+  function destroy() {
+    if (dead) {
+      return;
+    }
     dead = true;
     killAll(output);
+    console.log('closing output...')
     output.closePort();
-    process.exit(0);
-  });
+    process.exitCode = 0;
+  }
 }

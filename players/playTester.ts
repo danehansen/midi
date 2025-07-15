@@ -12,7 +12,7 @@ import { KeyboardState } from "../utils/types";
 import sleep from "../utils/sleep";
 
 const OUTPUT_NAME = 'WIDI orange Bluetooth';
-const VELOCITY = 1;
+const VELOCITY = 100;
 const DURATION = 100;
 
 export async function playTester() {
@@ -33,12 +33,14 @@ export async function playTester() {
 
   async function noteOn(pitch: number = MidiRange.MIN) {
     let message: MidiMessage = [MidiMessageStatus.NOTE_ON, pitch, VELOCITY];
+    // @ts-expect-error
     modifierFirst(message);
     await sleep(DURATION);
     if (dead) {
       return;
     }
     message = [MidiMessageStatus.NOTE_OFF, pitch, MidiRange.MIN]
+    // @ts-expect-error
     modifierFirst(message);
     pitch++;
     if (pitch > MidiRange.MAX) {
@@ -60,11 +62,14 @@ export async function playTester() {
     console.log(m);
   }
 
-  async function destroy() {
+  function destroy() {
+    if (dead) {
+      return;
+    }
     dead = true;
-    await sleep(DURATION * 1.1);
     killAll(output);
+    console.log('closing output...')
     output.closePort();
-    process.exit(0);
+    process.exitCode = 0;
   }
 }

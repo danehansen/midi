@@ -5,17 +5,18 @@ import isMidiMessageOn from "../utils/isMidiMessageOn";
 import getOctavesOfPitch from "../utils/getOctavesOfPitch";
 import math from '@danehansen/math';
 import { getTransformModifier, ModifierCallback } from "../modifiers";
+import { Transformer } from "../transforms";
 
 const pitchMapping: Record<Pitch, Pitch> = {}
 type Options = { lowPass?: number; highPass?: number };
 
-export default function randomizeOctave(
+const randomizeOctave: Transformer = (
   message: MidiMessage,
   inputState: KeyboardState,
   {
     lowPass = PianoRange.MAX,
     highPass = PianoRange.MIN,
-  }: Options = {}) {
+  }: Options = {}): MidiMessage[] => {
   const [status, pitch, velocity] = message;
   if (status !== MidiMessageStatus.NOTE_ON && status !== MidiMessageStatus.NOTE_OFF) {
     return [message]

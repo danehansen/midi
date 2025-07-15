@@ -3,8 +3,11 @@ import { Pitch, Velocity } from "../utils/types";
 import math from '@danehansen/math';
 import { MidiRange } from "../utils/const";
 import { getFilterModifier, ModifierCallback } from "../modifiers";
+import { Filter } from ".";
 
-export default function pianoCalibration([status, pitch, velocity]: MidiMessage, calibrationData: Record<Pitch, Velocity> = RANI_PIANO_CALIBRATION): MidiMessage {
+type CalibrationData = Record<Pitch, Velocity>
+
+const pianoCalibration: Filter = ([status, pitch, velocity]: MidiMessage, calibrationData: CalibrationData = RANI_PIANO_CALIBRATION): MidiMessage => {
   let v: number = velocity;
   const calVel = calibrationData[pitch];
   if (calVel && calVel !== MidiRange.MAX) {
@@ -19,7 +22,9 @@ export default function pianoCalibration([status, pitch, velocity]: MidiMessage,
   return [status, pitch, finalVelocity];
 }
 
-export const RANI_PIANO_CALIBRATION: Record<Pitch, Velocity> = { // act as velocity 0 for this pitch
+export default pianoCalibration;
+
+export const RANI_PIANO_CALIBRATION: CalibrationData = { // act as velocity 0 for this pitch
   21: MidiRange.MAX, // A0
   22: MidiRange.MAX, // A#0
   23: 26, // B0
