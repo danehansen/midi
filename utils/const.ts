@@ -1,6 +1,6 @@
 export const OCTAVE_SIZE = 12;
 
-export const enum MidiRange {
+export enum MidiRange {
   MIN = 0,
   MAX = 127,
 }
@@ -10,7 +10,7 @@ export const enum ChannelRange {
   MAX = 16,
 }
 
-export const enum PianoRange {
+export enum PianoRange {
   MIN = 21,
   MAX = 108, // PianoRange.MIN + 88 keys - 1
 }

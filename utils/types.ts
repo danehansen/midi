@@ -12,3 +12,10 @@ type Constructor = (typeof JZZ.MIDI);
 export interface MidiConstructor extends Constructor {
   SMF: Function | { MTrk: Function } | any
 }
+
+export interface Range {
+  MIN: number;
+  MAX: number;
+}
+
+export type Callback = (m: MidiMessage) => void
