@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "esnext",
+    ],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext"
+  }
+}

@@ -11,8 +11,9 @@ import pianoCalibration, { RANI_PIANO_CALIBRATION } from './handlers/filters/pia
 
 (async function () {
   // playTester();
-  playInput();
+  // playInput();
   // playFile('./mid/the_entertainer.mid');
+  playFile('./mid/happy_birthday.mid');
 
   // testInput();
   // testOutput();
