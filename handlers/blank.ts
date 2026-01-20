@@ -1,7 +1,6 @@
-import { MidiMessage } from "midi";
-import { StatefulMessageHandler, MessageHandler } from ".";
+import { StatefulMessageHandler } from ".";
 
-const blank: StatefulMessageHandler = (message: MidiMessage, callback: MessageHandler): void => {
+const blank: StatefulMessageHandler = (message, callback) => {
   callback(message)
 }
 

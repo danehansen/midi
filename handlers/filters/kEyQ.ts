@@ -1,23 +1,22 @@
-import { MidiMessage } from "midi";
 import { Pitch, Taper } from "../../utils/types";
 import * as eases from "../../utils/eases";
 import { MidiRange } from "../../utils/const";
 import math from '@danehansen/math';
 import { Filter } from ".";
 
-type Options = {
+interface Options {
   lowPass?: Pitch;
   highPass?: Pitch;
   taper?: Taper;
   ease?: eases.Ease;
 }
 
-const kEyQ: Filter = ([status, pitch, velocity]: MidiMessage, {
+const kEyQ: Filter = ([status, pitch, velocity], {
   lowPass = MidiRange.MAX,
   highPass = MidiRange.MIN,
   ease = eases.inCirc,
   taper = 1,
-}: Options = {}): MidiMessage => {
+}: Options = {}) => {
   if (pitch < highPass || pitch > lowPass) {
     return [status, pitch, MidiRange.MIN];
   }

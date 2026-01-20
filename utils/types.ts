@@ -18,4 +18,4 @@ export interface Range {
   MAX: number;
 }
 
-export type Callback = (m: MidiMessage) => void
+export interface Callback { (m: MidiMessage): void }

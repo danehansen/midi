@@ -12,7 +12,7 @@ const OUTPUT_NAME = 'WIDI green Bluetooth';
 const VELOCITY = 100;
 const DURATION = 100;
 
-export async function playTester() {
+export async function playTester(): Promise<void> {
   let dead = false;
   const output = await getOutput(OUTPUT_NAME, true);
   const outputState: KeyboardState = {};

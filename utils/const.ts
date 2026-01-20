@@ -16,6 +16,7 @@ export enum PianoRange {
 }
 
 export const enum MidiMessageStatus {
+  // these are the messages used by midi. sometimes as integers, sometiems as hexidecimal 
   NOTE_OFF = 128, // 0x80
   NOTE_ON = 144, // 0x90
   POLYPHONIC_AFTERTOUCH = 160, // 0xA0
@@ -25,7 +26,8 @@ export const enum MidiMessageStatus {
   PITCH_WHEEL = 224, // 0xE0
 }
 
-export const MidiMessageStatusMap = {
+export const MidiMessageStatusMap: Record<MidiMessageStatus, string> = {
+  // i think these are arbitary human readable strings but maybe they came from somewhere?
   [MidiMessageStatus.NOTE_OFF]: 'NOTE_OFF',
   [MidiMessageStatus.NOTE_ON]: 'NOTE_ON',
   [MidiMessageStatus.POLYPHONIC_AFTERTOUCH]: 'POLYPHONIC_AFTERTOUCH',

@@ -11,7 +11,7 @@ import echo from "../handlers/echo";
 const INPUT_NAME = 'WIDI orange Bluetooth';
 const OUTPUT_NAME = 'WIDI green Bluetooth';
 
-export async function playInput() {
+export async function playInput(): Promise<void> {
   let dead = false;
   const output = await getOutput(OUTPUT_NAME, true);
   const outputState: KeyboardState = {};

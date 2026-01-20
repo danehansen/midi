@@ -18,7 +18,7 @@ const FILE_NAME = './mid/happy_birthday_poly.mid';
 // https://www.conversion-tool.com/audiotomidi/
 // const FILE_NAME = './mid/take_on_me.mid';
 
-export default async function testMidiFile() {
+export default async function testMidiFile(): Promise<void> {
   let dead = false;
   const output = await getOutput(OUTPUT_NAME, true);
   const data = await readFile(FILE_NAME, 'binary');

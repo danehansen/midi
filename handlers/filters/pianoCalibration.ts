@@ -1,4 +1,3 @@
-import { MidiMessage } from "midi";
 import { Pitch, Velocity } from "../../utils/types";
 import math from '@danehansen/math';
 import { MidiRange } from "../../utils/const";
@@ -6,7 +5,7 @@ import { Filter } from ".";
 
 type CalibrationData = Record<Pitch, Velocity>
 
-const pianoCalibration: Filter = ([status, pitch, velocity]: MidiMessage, calibrationData: CalibrationData = RANI_PIANO_CALIBRATION): MidiMessage => {
+const pianoCalibration: Filter = ([status, pitch, velocity], calibrationData: CalibrationData = RANI_PIANO_CALIBRATION) => {
   let v: number = velocity;
   const calVel = calibrationData[pitch];
   if (calVel && calVel !== MidiRange.MAX) {

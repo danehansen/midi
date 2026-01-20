@@ -1,21 +1,21 @@
 import { MidiMessage } from "midi";
 import { MidiMessageStatus, PianoRange } from "../../utils/const";
-import { KeyboardState, Pitch } from "../../utils/types";
+import { Pitch } from "../../utils/types";
 import isMidiMessageOn from "../../utils/isMidiMessageOn";
 import getOctavesOfPitch from "../../utils/getOctavesOfPitch";
 import math from '@danehansen/math';
 import { Transformer } from "../transforms";
 
 const pitchMapping: Record<Pitch, Pitch> = {}
-type Options = { lowPass?: number; highPass?: number };
+interface Options { lowPass?: number; highPass?: number };
 
 const randomizeOctave: Transformer = (
-  message: MidiMessage,
-  inputState: KeyboardState,
+  message,
+  // inputState,
   {
     lowPass = PianoRange.MAX,
     highPass = PianoRange.MIN,
-  }: Options = {}): MidiMessage[] => {
+  }: Options = {}) => {
   const [status, pitch, velocity] = message;
   if (status !== MidiMessageStatus.NOTE_ON && status !== MidiMessageStatus.NOTE_OFF) {
     return [message]

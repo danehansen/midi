@@ -1,5 +1,4 @@
-import { MidiMessage } from "midi";
-import { StatefulMessageHandler, MessageHandler } from ".";
+import { StatefulMessageHandler } from ".";
 import { MidiMessageStatus, MidiRange } from "../utils/const";
 import { Range } from "../utils/types";
 import { getPitch, getStatus, getVelocity } from "../utils/getMessageProps";
@@ -10,7 +9,7 @@ const DECAY = 0.8;
 const DIRECTION = 1;
 const STEP = 1;
 
-const ascend: StatefulMessageHandler = (message: MidiMessage, callback: MessageHandler): void => {
+const ascend: StatefulMessageHandler = (message, callback) => {
   callback(message);
   const status = getStatus(message);
   if (status === MidiMessageStatus.NOTE_ON || status === MidiMessageStatus.NOTE_OFF) {

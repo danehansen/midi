@@ -1,20 +1,20 @@
-export type Ease = (t: number) => number; // t = number 0-1
+export interface Ease { (t: number): number; } // t = number 0-1
 
-export const linear: Ease = (t: number) => t;
+export const linear: Ease = (t) => t;
 
-export const outQuad: Ease = (t: number) => Math.pow(t, 2);
-export const outCubic: Ease = (t: number) => Math.pow(t, 3);
-export const outQuart: Ease = (t: number) => Math.pow(t, 4);
-export const outQuint: Ease = (t: number) => Math.pow(t, 5);
-export const outCirc: Ease = (t: number) => 1 - Math.sqrt(1 - Math.pow(t, 2));
-export const inSine: Ease = (t: number) => Math.sin(t * Math.PI / 2);
+export const outQuad: Ease = (t) => Math.pow(t, 2);
+export const outCubic: Ease = (t) => Math.pow(t, 3);
+export const outQuart: Ease = (t) => Math.pow(t, 4);
+export const outQuint: Ease = (t) => Math.pow(t, 5);
+export const outCirc: Ease = (t) => 1 - Math.sqrt(1 - Math.pow(t, 2));
+export const inSine: Ease = (t) => Math.sin(t * Math.PI / 2);
 
 function inverse(ease: Ease, t: number): number {
   return 1 - Math.abs(ease(t - 1));
 }
 
 function inverser(ease: Ease): Ease {
-  return (t: number) => inverse(ease, t);
+  return (t) => inverse(ease, t);
 }
 
 export const inQuad = inverser(outQuad);
@@ -31,5 +31,5 @@ function tpmt(x: number): number {
   return (Math.pow(2, -10 * x) - A) * B;
 }
 
-export const inExpo = (t: number) => tpmt(1 - t);
-export const outExpo = (t: number) => 1 - tpmt(t);
+export const inExpo: Ease = (t) => tpmt(1 - t);
+export const outExpo: Ease = (t) => 1 - tpmt(t);

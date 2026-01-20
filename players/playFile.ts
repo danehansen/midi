@@ -17,7 +17,7 @@ const OUTPUT_NAME = 'WIDI green Bluetooth';
 
 SMF(JZZ);
 
-export async function playFile(midiFile: string) {
+export async function playFile(midiFile: string): Promise<void> {
   let dead = false;
   const output = await getOutput(OUTPUT_NAME, true);
   const outputState: KeyboardState = {};

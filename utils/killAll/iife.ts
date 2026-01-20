@@ -1,8 +1,8 @@
 import killAll from './';
-import midi from 'midi';
+import { Output } from 'midi';
 
 (function () {
-  const output = new midi.Output();
+  const output = new Output();
   for (let portNumber = 0; portNumber < output.getPortCount(); portNumber++) {
     output.openPort(portNumber);
     killAll(output);

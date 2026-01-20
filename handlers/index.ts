@@ -8,12 +8,14 @@ import pianoCalibration from "./filters/pianoCalibration";
 import randomizeOctave from "./transforms/randomizeOctave";
 import shepardize from "./transforms/shepardize";
 
-export type MessageHandler = (message: MidiMessage) => void;
-export type StatefulMessageHandler = (message: MidiMessage, callback: MessageHandler, preexistingState?: KeyboardState) => void;
+export interface MessageHandler { (message: MidiMessage): void; }
+export interface StatefulMessageHandler { (message: MidiMessage, callback: MessageHandler, preexistingState?: KeyboardState): void; }
+// export interface Filter { (message: MidiMessage, options?: {}): MidiMessage; }
+// export interface Transformer { (message: MidiMessage, preexistingState: KeyboardState, options?: any): MidiMessage[] };
 
 function getTransformHandler(callback: MessageHandler, transformer: Transformer): MessageHandler {
   const inState: KeyboardState = {};
-  return (message: MidiMessage): void => {
+  return (message) => {
     const pitch = getPitch(message);
     const modifiedMessages = transformer(message, inState);
     inState[pitch] = message;
@@ -25,7 +27,7 @@ function getTransformHandler(callback: MessageHandler, transformer: Transformer)
 
 function getFilterHandler(callback: MessageHandler, filter: Filter): MessageHandler {
   const inState: KeyboardState = {};
-  return (message: MidiMessage): void => {
+  return (message) => {
     const pitch = getPitch(message);
     const alteredMessage = filter(message);
     inState[pitch] = message;

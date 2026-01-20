@@ -1,5 +1,4 @@
-import { MidiMessage } from "midi";
-import { StatefulMessageHandler, MessageHandler } from ".";
+import { StatefulMessageHandler } from ".";
 import { MidiMessageStatus } from "../utils/const";
 import { getPitch, getStatus, getVelocity } from "../utils/getMessageProps";
 import getDecayedVelocities from "../utils/getDecayedVelocities";
@@ -7,7 +6,7 @@ import getDecayedVelocities from "../utils/getDecayedVelocities";
 const DELAY = 100;
 const DECAY = 0.9;
 
-const echo: StatefulMessageHandler = (message: MidiMessage, callback: MessageHandler): void => {
+const echo: StatefulMessageHandler = (message, callback) => {
   callback(message);
   const status = getStatus(message);
   if (status === MidiMessageStatus.NOTE_ON || status === MidiMessageStatus.NOTE_OFF) {

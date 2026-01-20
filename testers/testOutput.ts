@@ -13,7 +13,7 @@ const MAX_VELOCITY = Math.round(MidiRange.MAX * 0.5);
 
 const OUTPUT_NAME = 'WIDI green Bluetooth';
 
-export default async function testOutput() {
+export default async function testOutput(): Promise<void> {
   let dead = false;
   let outputState: KeyboardState = {};
   const output = await getOutput(OUTPUT_NAME, true);

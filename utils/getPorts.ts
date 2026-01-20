@@ -1,10 +1,10 @@
 import JZZ from 'jzz';
-import midi, { MidiMessage } from 'midi';
+import { MidiMessage, Input, Output } from 'midi';
 import killAll from './killAll';
 
 // let count = 0;
 
-async function makeVirtualOutput(): Promise<midi.Output> {
+async function makeVirtualOutput(): Promise<Output> {
   const jzz = await JZZ()
     .or('Cannot start MIDI engine!')
     .openMidiOut()
@@ -21,10 +21,10 @@ async function makeVirtualOutput(): Promise<midi.Output> {
     closePort() {
       jzz.close();
     }
-  } as unknown as midi.Output
+  } as unknown as Output
 }
 
-async function makeVirtualInput(): Promise<midi.Input> {
+async function makeVirtualInput(): Promise<Input> {
   // throw new Error('TODO: makeVirtualInput');
   const jzz = await JZZ()
     .or('Cannot start MIDI engine!')
@@ -40,15 +40,15 @@ async function makeVirtualInput(): Promise<midi.Input> {
     closePort() {
       jzz.close();
     }
-  } as unknown as midi.Input
+  } as unknown as Input
 }
 
-function getPortNumber(str: string, put: midi.Output | midi.Input): number | string {
+function getPortNumber(str: string, put: Output | Input): number | string {
   const count = put.getPortCount();
   if (!count) {
     return "no ports found.";
   }
-  const names: string[] = [];
+  const names = [];
   for (let i = 0; i < count; i++) {
     const name = put.getPortName(i)
     if (name === str) {
@@ -59,9 +59,9 @@ function getPortNumber(str: string, put: midi.Output | midi.Input): number | str
   return `no port found named ${str}. only these: ${names}`
 }
 
-export async function getOutput(name?: string, fallbackToVirtual?: boolean): Promise<midi.Output> {
+export async function getOutput(name?: string, fallbackToVirtual?: boolean): Promise<Output> {
   if (name) {
-    const output = new midi.Output();
+    const output = new Output();
     const portNumber: number | string = getPortNumber(name, output);
 
     if (typeof portNumber === 'string') {
@@ -85,15 +85,15 @@ export async function getOutput(name?: string, fallbackToVirtual?: boolean): Pro
         killAll(output);
         output.closePort();
       },
-    } as midi.Output
+    } as Output
   }
 
   return await makeVirtualOutput();
 }
 
-export async function getInput(name?: string, fallbackToVirtual?: boolean) {
+export async function getInput(name?: string, fallbackToVirtual?: boolean): Promise<Input> {
   if (name) {
-    const input = new midi.Input();
+    const input = new Input();
     const portNumber: number | string = getPortNumber(name, input);
 
     if (typeof portNumber === 'string') {

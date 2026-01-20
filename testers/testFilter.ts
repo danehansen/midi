@@ -3,7 +3,7 @@ import { MidiMessageStatus, MidiRange } from "../utils/const";
 import dataViz from "../utils/dataViz";
 import { KeyboardState, Velocity } from "../utils/types";
 
-export default function testFilter(filter: Filter, options?: any, velocity: Velocity = MidiRange.MAX) {
+export default function testFilter(filter: Filter, options?: any, velocity: Velocity = MidiRange.MAX): void {
   const outputState: KeyboardState = {};
 
   for (let pitch = MidiRange.MIN; pitch <= MidiRange.MAX; pitch++) {

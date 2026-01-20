@@ -2,7 +2,7 @@ import { MidiMessageStatus, MidiRange } from "./const";
 import babar from 'babar';
 import { KeyboardState } from "./types";
 
-export default function dataViz(keyboardState: KeyboardState) {
+export default function dataViz(keyboardState: KeyboardState): void {
   console.clear();
   type Item = [number, number]
   const array: Item[] = [];

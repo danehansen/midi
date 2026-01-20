@@ -7,7 +7,7 @@ import { getPitch } from '../utils/getMessageProps';
 
 const INPUT_NAME = 'WIDI orange Bluetooth';
 
-export default async function testInput() {
+export default async function testInput(): Promise<void> {
   let dead = false;
   const input = await getInput(INPUT_NAME);
   let inputState: KeyboardState = {};
