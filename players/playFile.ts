@@ -10,8 +10,10 @@ import SMF from 'jzz-midi-smf';
 import { MidiMessageStatus } from "../utils/const";
 import { getPianoCalibrationHandler, getKEyQHandler, getShepardizeHandler, getRandomizeOctaveHandler } from '../handlers/index'
 import sleep from "../utils/sleep";
+import echo from "../handlers/echo";
+import ascend from "../handlers/ascend";
 
-const OUTPUT_NAME = 'WIDI orange Bluetooth';
+const OUTPUT_NAME = 'WIDI green Bluetooth';
 
 SMF(JZZ);
 
@@ -36,7 +38,9 @@ export async function playFile(midiFile: string) {
   function send(message: MidiMessage) {
     const status = getStatus(message);
     if (status === MidiMessageStatus.NOTE_ON || status === MidiMessageStatus.NOTE_OFF) {
-      modifierFirst(message);
+      // modifierFirst(message);
+      // echo(message, modifierLast);
+      ascend(message, modifierLast);
     }
   }
 

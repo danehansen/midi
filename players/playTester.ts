@@ -8,7 +8,7 @@ import { MidiMessageStatus, MidiRange } from "../utils/const";
 import { KeyboardState } from "../utils/types";
 import sleep from "../utils/sleep";
 
-const OUTPUT_NAME = 'WIDI orange Bluetooth';
+const OUTPUT_NAME = 'WIDI green Bluetooth';
 const VELOCITY = 100;
 const DURATION = 100;
 
@@ -17,11 +17,15 @@ export async function playTester() {
   const output = await getOutput(OUTPUT_NAME, true);
   const outputState: KeyboardState = {};
 
-  // const modifierLast = getKEyQHandler(finalCallback);
+  const modifierLast = getKEyQHandler(finalCallback);
+  const modifierFirst = getShepardizeHandler(modifierLast);
+
+  // const modifierFirst = getShepardizeHandler(finalCallback);
+
   // const modifierLast = getPianoCalibrationHandler(finalCallback);
   // const modifierSecond = getPianoCalibrationHandler(modifierLast);
-  // const modifierFirst = getShepardizeHandler(modifierLast);
-  const modifierFirst = getRandomizeOctaveHandler(finalCallback);
+
+  // const modifierFirst = getRandomizeOctaveHandler(finalCallback);
   // const modifierFirst = getPianoCalibrationHandler(finalCallback);
 
   console.log('testing...');
@@ -49,12 +53,12 @@ export async function playTester() {
   function finalCallback(m: MidiMessage) {
     const p = getPitch(m);
     outputState[p] = m;
-    // dataViz(outputState);
+    dataViz(outputState);
     const velocity = m[2];
     if (!isNaN(velocity)) {
       output.sendMessage(m);
     }
-    // console.log(m);
+    console.log(m);
   }
 
   function destroy() {

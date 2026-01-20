@@ -8,8 +8,8 @@ import { KeyboardState } from "../utils/types";
 import ascend from "../handlers/ascend";
 import echo from "../handlers/echo";
 
-const INPUT_NAME = 'WIDI green Bluetooth';
-const OUTPUT_NAME = 'WIDI orange Bluetooth';
+const INPUT_NAME = 'WIDI orange Bluetooth';
+const OUTPUT_NAME = 'WIDI green Bluetooth';
 
 export async function playInput() {
   let dead = false;
