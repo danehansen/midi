@@ -30,7 +30,7 @@ export default async function testOutput() {
     outputState[getPitch(message)] = message;
     dataViz(outputState);
     const [status, pitch, velocity] = message;
-    console.log({ status: MidiMessageStatusMap[status], pitch, velocity })
+    console.log({ status: MidiMessageStatusMap[status as MidiMessageStatus], pitch, velocity })
     await sleep(DURATION);
     if (!dead) {
       await noteOff();
@@ -46,7 +46,7 @@ export default async function testOutput() {
     outputState[getPitch(message)] = message;
     dataViz(outputState);
     const [status, pitch, velocity] = message;
-    console.log({ status: MidiMessageStatusMap[status], pitch, velocity })
+    console.log({ status: MidiMessageStatusMap[status as MidiMessageStatus], pitch, velocity })
     await sleep(DURATION);
     if (!dead) {
       await noteOn();

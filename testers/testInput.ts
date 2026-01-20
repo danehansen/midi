@@ -1,11 +1,11 @@
 import dataViz from '../utils/dataViz';
 import { getInput } from '../utils/getPorts';
 import { MidiMessage } from 'midi';
-import { MidiMessageStatusMap } from '../utils/const';
+import { MidiMessageStatus, MidiMessageStatusMap } from '../utils/const';
 import { KeyboardState } from '../utils/types';
 import { getPitch } from '../utils/getMessageProps';
 
-const INPUT_NAME = 'WIDI green Bluetooth';
+const INPUT_NAME = 'WIDI orange Bluetooth';
 
 export default async function testInput() {
   let dead = false;
@@ -20,7 +20,8 @@ export default async function testInput() {
     inputState[getPitch(message)] = message;
     dataViz(inputState);
     const [status, pitch, velocity] = message;
-    console.log({ deltaTime, status: MidiMessageStatusMap[status], pitch, velocity })
+
+    console.log({ deltaTime, status: MidiMessageStatusMap[status as MidiMessageStatus], pitch, velocity })
   }
 
   function destroy() {

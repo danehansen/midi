@@ -10,13 +10,13 @@ import { KeyboardState, MidiConstructor } from '../utils/types';
 
 SMF(JZZ);
 
-const OUTPUT_NAME = 'WIDI orange Bluetooth';
+const OUTPUT_NAME = 'WIDI green Bluetooth';
 
 // const FILE_NAME = './mid/happy_birthday.mid';
-// const FILE_NAME = './mid/happy_birthday_poly.mid';
+const FILE_NAME = './mid/happy_birthday_poly.mid';
 // const FILE_NAME = './mid/the_entertainer.mid';
 // https://www.conversion-tool.com/audiotomidi/
-const FILE_NAME = './mid/take_on_me.mid';
+// const FILE_NAME = './mid/take_on_me.mid';
 
 export default async function testMidiFile() {
   let dead = false;
