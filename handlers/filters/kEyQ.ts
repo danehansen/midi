@@ -22,8 +22,8 @@ const kEyQ: Filter = ([status, pitch, velocity]: MidiMessage, {
     return [status, pitch, MidiRange.MIN];
   }
   let v: number = velocity;
-  const nPitch = math.normalize(highPass - 1, lowPass + 1, pitch); // range expanded by 1 on each end so that the highest/lowest notes are not wastest as velocity 0
-  const taperIn = taper / 2
+  const nPitch = math.normalize(highPass - 1, lowPass + 1, pitch); // range expanded by 1 on each end so that the highest/lowest notes are not wasted as velocity 0
+  const taperIn = taper / 2;
   const taperOut = 1 - taperIn;
   if (nPitch < taperIn) {
     v *= ease(nPitch / taperIn);
@@ -35,4 +35,3 @@ const kEyQ: Filter = ([status, pitch, velocity]: MidiMessage, {
 }
 
 export default kEyQ;
-
