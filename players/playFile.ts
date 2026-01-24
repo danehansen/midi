@@ -1,7 +1,6 @@
 import { MidiMessage } from "midi";
-import { KeyboardState, MidiConstructor } from "../utils/types";
-import { getPitch, getStatus } from "../utils/getMessageProps";
-import dataViz from "../utils/dataViz";
+import { MidiConstructor } from "../utils/types";
+import { getStatus } from "../utils/getMessageProps";
 import { getOutput } from "../utils/getPorts";
 import killAll from "../utils/killAll";
 import { readFile } from 'fs/promises';
@@ -12,15 +11,16 @@ import { getPianoCalibrationHandler, getKEyQHandler, getShepardizeHandler, getRa
 import sleep from "../utils/sleep";
 import echo from "../handlers/echo";
 import ascend from "../handlers/ascend";
+import { Queue } from "../utils/queue";
 
-const OUTPUT_NAME = 'WIDI green Bluetooth';
+const OUTPUT_NAME = 'WIDI orange Bluetooth';
 
 SMF(JZZ);
 
 export async function playFile(midiFile: string): Promise<void> {
   let dead = false;
   const output = await getOutput(OUTPUT_NAME, true);
-  const outputState: KeyboardState = {};
+  const queue = new Queue(output.sendMessage)
 
   const modifierLast = getKEyQHandler(finalCallback);
   // const modifierSecond = getPianoCalibrationHandler(modifierLast);
@@ -45,10 +45,8 @@ export async function playFile(midiFile: string): Promise<void> {
   }
 
   function finalCallback(m: MidiMessage) {
-    const p = getPitch(m);
-    outputState[p] = m;
-    dataViz(outputState);
-    output.sendMessage(m);
+    queue.insertMessage(m);
+    queue.vizualize();
   }
 
   function destroy() {
@@ -56,6 +54,7 @@ export async function playFile(midiFile: string): Promise<void> {
       return;
     }
     dead = true;
+    queue.kill();
     player.stop();
     player.disconnect();
     killAll(output);

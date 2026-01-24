@@ -10,10 +10,10 @@ import { PianoRange } from './utils/const';
 import pianoCalibration, { RANI_PIANO_CALIBRATION } from './handlers/filters/pianoCalibration';
 
 (async function () {
-  // playTester();
+  playTester();
   // playInput();
   // playFile('./mid/the_entertainer.mid');
-  playFile('./mid/happy_birthday.mid');
+  // playFile('./mid/happy_birthday.mid');
 
   // testInput();
   // testOutput();

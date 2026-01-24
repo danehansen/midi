@@ -1,12 +1,10 @@
 import { Input, MidiMessage } from "midi";
-import { getPitch } from "../utils/getMessageProps";
-import dataViz from "../utils/dataViz";
 import { getInput, getOutput } from "../utils/getPorts";
 import killAll from "../utils/killAll";
 import { getKEyQHandler, getPianoCalibrationHandler, getShepardizeHandler, getRandomizeOctaveHandler } from "../handlers";
-import { KeyboardState } from "../utils/types";
 import ascend from "../handlers/ascend";
 import echo from "../handlers/echo";
+import { Queue } from "../utils/queue";
 
 const INPUT_NAME = 'WIDI orange Bluetooth';
 const OUTPUT_NAME = 'WIDI green Bluetooth';
@@ -14,8 +12,10 @@ const OUTPUT_NAME = 'WIDI green Bluetooth';
 export async function playInput(): Promise<void> {
   let dead = false;
   const output = await getOutput(OUTPUT_NAME, true);
-  const outputState: KeyboardState = {};
+  const queue = new Queue(output.sendMessage)
   let input: Input;
+
+  const q = new Queue((arg) => { console.log('noop', arg) })
 
   const modifierLast = getKEyQHandler(finalCallback);
   // const modifierSecond = getPianoCalibrationHandler(modifierLast);
@@ -34,10 +34,8 @@ export async function playInput(): Promise<void> {
   }
 
   function finalCallback(m: MidiMessage) {
-    const p = getPitch(m);
-    outputState[p] = m;
-    dataViz(outputState);
-    output.sendMessage(m);
+    queue.insertMessage(m);
+    queue.vizualize();
   }
 
   function destroy() {
@@ -45,6 +43,7 @@ export async function playInput(): Promise<void> {
       return;
     }
     dead = true;
+    queue.kill();
     killAll(output);
     input.off('message', inputListener);
     console.log('closing input...')

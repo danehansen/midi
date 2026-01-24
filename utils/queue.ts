@@ -1,13 +1,17 @@
 import { MidiMessage } from "midi";
 import { Callback, KeyboardState } from "./types";
+import { getPitch, getVelocity } from "./getMessageProps";
+import dataViz from "./dataViz";
 
-
+type TimeoutId = ReturnType<typeof setTimeout>;
 
 export class Queue {
   #state: KeyboardState = {};
-  #callback: Callback;
+  #callback?: Callback;
+  #timeoutIds: TimeoutId[] = [];
+  #maxLength: number = 0;
 
-  constructor(callback: Callback) {
+  constructor(callback?: Callback) {
     this.#callback = callback;
   }
 
@@ -17,16 +21,39 @@ export class Queue {
       playMessage()
     } else {
       const timeoutId = setTimeout(() => {
-        playMessage()
+        playMessage();
+        const index = this.#timeoutIds.indexOf(timeoutId);
+        if (index >= 0) {
+          this.#timeoutIds.splice(index, 1);
+        }
       }, delay);
+      this.#timeoutIds.push(timeoutId);
     }
   }
 
   #playMessage = (message: MidiMessage) => {
-    this.#callback(message);
+    const p = getPitch(message);
+    const v = getVelocity(message);
+    if (v) {
+      this.#state[p] = message;
+    } else {
+      delete this.#state[p];
+    }
+    this.#callback?.(message);
   }
 
   kill = () => {
+    this.#timeoutIds.forEach((timeoutId) => clearTimeout(timeoutId))
+  }
 
+  vizualize = () => {
+    dataViz(this.#state);
+    const currentLength = this.currentNotes.length
+    this.#maxLength = Math.max(this.#maxLength, currentLength)
+    console.log({ currentLength, maxLength: this.#maxLength });
+  }
+
+  get currentNotes(): MidiMessage[] {
+    return Object.values(this.#state).filter((m) => !!m)
   }
 }
