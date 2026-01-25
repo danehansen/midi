@@ -6,23 +6,18 @@ import ascend from "../handlers/ascend";
 import echo from "../handlers/echo";
 import { Queue } from "../utils/queue";
 
-const INPUT_NAME = 'WIDI orange Bluetooth';
-const OUTPUT_NAME = 'WIDI green Bluetooth';
-
-export async function playInput(): Promise<void> {
+export async function playInput(inputName: string, outputName: string): Promise<void> {
   let dead = false;
-  const output = await getOutput(OUTPUT_NAME, true);
+  const output = await getOutput(outputName, true);
   const queue = new Queue(output.sendMessage)
   let input: Input;
-
-  const q = new Queue((arg) => { console.log('noop', arg) })
 
   const modifierLast = getKEyQHandler(finalCallback);
   // const modifierSecond = getPianoCalibrationHandler(modifierLast);
   // const modifierFirst = getShepardizeHandler(modifierLast);
   // const modifierFirst = getRandomizeOctaveHandler(modifierLast);
 
-  input = await getInput(INPUT_NAME);
+  input = await getInput(inputName);
   input.on('message', inputListener);
   console.log('listening...');
   process.on('SIGINT', destroy);

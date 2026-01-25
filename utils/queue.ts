@@ -2,6 +2,7 @@ import { MidiMessage } from "midi";
 import { Callback, KeyboardState } from "./types";
 import { getPitch, getVelocity } from "./getMessageProps";
 import dataViz from "./dataViz";
+import { MidiMessageStatus } from "./const";
 
 type TimeoutId = ReturnType<typeof setTimeout>;
 
@@ -9,7 +10,7 @@ export class Queue {
   #state: KeyboardState = {};
   #callback?: Callback;
   #timeoutIds: TimeoutId[] = [];
-  #maxLength: number = 0;
+  // #maxLength: number = 0;
 
   constructor(callback?: Callback) {
     this.#callback = callback;
@@ -46,11 +47,17 @@ export class Queue {
     this.#timeoutIds.forEach((timeoutId) => clearTimeout(timeoutId))
   }
 
+  stopAll = () => {
+    this.currentNotes.forEach((message) => {
+      this.insertMessage([MidiMessageStatus.NOTE_OFF, getPitch(message), 0])
+    })
+  }
+
   vizualize = () => {
     dataViz(this.#state);
-    const currentLength = this.currentNotes.length
-    this.#maxLength = Math.max(this.#maxLength, currentLength)
-    console.log({ currentLength, maxLength: this.#maxLength });
+    // const currentLength = this.currentNotes.length
+    // this.#maxLength = Math.max(this.#maxLength, currentLength)
+    // console.log({ currentLength, maxLength: this.#maxLength });
   }
 
   get currentNotes(): MidiMessage[] {

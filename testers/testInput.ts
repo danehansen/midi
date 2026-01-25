@@ -3,11 +3,9 @@ import { MidiMessage } from 'midi';
 import { MidiMessageStatus, MidiMessageStatusMap } from '../utils/const';
 import { Queue } from '../utils/queue';
 
-const INPUT_NAME = 'WIDI orange Bluetooth';
-
-export default async function testInput(): Promise<void> {
+export default async function testInput(inputName: string): Promise<void> {
   let dead = false;
-  const input = await getInput(INPUT_NAME);
+  const input = await getInput(inputName);
   const queue = new Queue();
 
   input.on('message', inputListener);

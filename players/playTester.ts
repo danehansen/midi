@@ -6,13 +6,12 @@ import { MidiMessageStatus, MidiRange } from "../utils/const";
 import sleep from "../utils/sleep";
 import { Queue } from "../utils/queue";
 
-const OUTPUT_NAME = 'WIDI orange Bluetooth';
 const VELOCITY = 100;
 const DURATION = 100;
 
-export async function playTester(): Promise<void> {
+export async function playTester(outputName: string): Promise<void> {
   let dead = false;
-  const output = await getOutput(OUTPUT_NAME, true);
+  const output = await getOutput(outputName, true);
   const queue = new Queue(output.sendMessage);
 
   // const modifierLast = getKEyQHandler(finalCallback);

@@ -5,25 +5,16 @@ import JZZ from 'jzz';
 import SMF from 'jzz-midi-smf';
 import { readFile } from 'fs/promises';
 import killAll from '../utils/killAll';
-import { KeyboardState, MidiConstructor } from '../utils/types';
+import { MidiConstructor } from '../utils/types';
 import { Queue } from '../utils/queue';
-import dataViz from '../utils/dataViz';
 
 SMF(JZZ);
 
-const OUTPUT_NAME = 'WIDI orange Bluetooth';
-
-const FILE_NAME = './mid/happy_birthday.mid';
-// const FILE_NAME = './mid/happy_birthday_poly.mid';
-// const FILE_NAME = './mid/the_entertainer.mid';
-// https://www.conversion-tool.com/audiotomidi/
-// const FILE_NAME = './mid/take_on_me.mid';
-
-export default async function testMidiFile(): Promise<void> {
+export default async function testMidiFile(outputName: string, midiPath: string): Promise<void> {
   let dead = false;
-  const output = await getOutput(OUTPUT_NAME, true);
+  const output = await getOutput(outputName, true);
   const queue = new Queue(output.sendMessage);
-  const data = await readFile(FILE_NAME, 'binary');
+  const data = await readFile(midiPath, 'binary');
   const smf = new (JZZ.MIDI as MidiConstructor).SMF(data);
   const player = smf.player();
 

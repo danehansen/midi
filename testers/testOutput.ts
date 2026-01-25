@@ -1,21 +1,17 @@
 import { MidiMessage } from 'midi';
 import { MidiMessageStatus, MidiMessageStatusMap, MidiRange } from '../utils/const';
 import sleep from '../utils/sleep';
-import dataViz from '../utils/dataViz';
 import { getOutput } from '../utils/getPorts';
 import killAll from '../utils/killAll';
-import { getPitch } from '../utils/getMessageProps';
 import { Queue } from '../utils/queue';
 
 const MIDDLE_C = 60;
 const DURATION = 500;
 const MAX_VELOCITY = Math.round(MidiRange.MAX * 0.5);
 
-const OUTPUT_NAME = 'WIDI green Bluetooth';
-
-export default async function testOutput(): Promise<void> {
+export default async function testOutput(outputName: string): Promise<void> {
   let dead = false;
-  const output = await getOutput(OUTPUT_NAME, true);
+  const output = await getOutput(outputName, true);
   const queue = new Queue(output.sendMessage);
 
   noteOn();

@@ -36,3 +36,12 @@ export const MidiMessageStatusMap: Record<MidiMessageStatus, string> = {
   [MidiMessageStatus.CHANNEL_AFTERTOUCH]: 'CHANNEL_AFTERTOUCH',
   [MidiMessageStatus.PITCH_WHEEL]: 'PITCH_WHEEL',
 }
+
+export const enum PortNames {
+  ORANGE = 'WIDI orange Bluetooth',
+  GREEN = 'WIDI green Bluetooth',
+  WC1 = 'H4MIDI-WC Port 1',
+  WC2 = 'H4MIDI-WC Port 2',
+  WC3 = 'H4MIDI-WC Port 3',
+  WC4 = 'H4MIDI-WC Port 4',
+}

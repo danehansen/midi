@@ -13,13 +13,11 @@ import echo from "../handlers/echo";
 import ascend from "../handlers/ascend";
 import { Queue } from "../utils/queue";
 
-const OUTPUT_NAME = 'WIDI orange Bluetooth';
-
 SMF(JZZ);
 
-export async function playFile(midiFile: string): Promise<void> {
+export async function playFile(outputName: string, midiFile: string): Promise<void> {
   let dead = false;
-  const output = await getOutput(OUTPUT_NAME, true);
+  const output = await getOutput(outputName, true);
   const queue = new Queue(output.sendMessage)
 
   const modifierLast = getKEyQHandler(finalCallback);
